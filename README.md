@@ -15,14 +15,15 @@ The frontend currently uses the legacy ADAL.js v1 implicit flow with a popup bec
 2. Run `npm install` and `npm run dev`.
 3. Register `http://localhost:5173` as a Single-page application redirect URI in Entra ID. The slash matters: Azure compares this value exactly.
 
-For the Vercel deployment, set these Vercel environment variables and redeploy:
+The redirect URI is derived dynamically from the current host and `VITE_BASE_PATH`. Leave `VITE_REDIRECT_URI` unset unless Azure requires a specific fixed URI.
+
+For a root deployment such as Vercel, use:
 
 ```text
-VITE_REDIRECT_URI=https://dashboard-acen-new.vercel.app
 VITE_BASE_PATH=/
 ```
 
-For the old production deployment, use `VITE_BASE_PATH=/dashbuild/` and `VITE_REDIRECT_URI=https://www.etmsdrive.in/dashbuild/`. Register the exact URI used by each deployment. ADAL uses the tenant v1 authority `https://login.microsoftonline.com/f3211d0e-125b-42c3-86db-322b19a65a22`.
+For the old production deployment, use `VITE_BASE_PATH=/dashbuild/`; the derived URI will be `https://www.etmsdrive.in/dashbuild/`. Register the exact URI used by each deployment. ADAL uses the tenant v1 authority `https://login.microsoftonline.com/f3211d0e-125b-42c3-86db-322b19a65a22`.
 
 ## Backend contract
 

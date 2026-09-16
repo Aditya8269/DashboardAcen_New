@@ -1,34 +1,9 @@
-import { useEffect, useState } from 'react'
-import { useNavigate } from 'react-router-dom'
-import { authorizeCurrentUser, startLogin } from '../authConfig'
+import { useState } from 'react'
+import { startLogin } from '../authConfig'
 
 const Login = () => {
-  const navigate = useNavigate()
   const [isSigningIn, setIsSigningIn] = useState(false)
   const [error, setError] = useState('')
-
-  useEffect(() => {
-    const handleLoginComplete = async (event) => {
-      const { error: loginError, errorDescription } = event.detail
-
-      if (loginError) {
-        setError(errorDescription || loginError)
-        setIsSigningIn(false)
-        return
-      }
-
-      try {
-        await authorizeCurrentUser()
-        navigate('/', { replace: true })
-      } catch (authorizationError) {
-        setError(authorizationError.message || 'This account is not authorized.')
-        setIsSigningIn(false)
-      }
-    }
-
-    window.addEventListener('adal-login-complete', handleLoginComplete)
-    return () => window.removeEventListener('adal-login-complete', handleLoginComplete)
-  }, [navigate])
 
   const handleMicrosoftLogin = () => {
     setError('')

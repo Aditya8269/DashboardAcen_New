@@ -2,14 +2,7 @@ import AuthenticationContext from 'adal-angular'
 
 const tenantId = import.meta.env.VITE_TENANT_ID || 'f3211d0e-125b-42c3-86db-322b19a65a22'
 const clientId = import.meta.env.VITE_CLIENT_ID || 'b55a7b4d-6fad-4f22-bb96-1f4ad1987818'
-const productionRedirectUri = 'https://www.etmsdrive.in/dashbuild/'
-const vercelRedirectUri = 'https://dashboard-acen-new.vercel.app'
-const redirectUri = import.meta.env.VITE_REDIRECT_URI
-  || (window.location.hostname === 'https://etmsonline.in'
-    ? productionRedirectUri
-    : window.location.hostname === 'dashboard-acen-new.vercel.app'
-      ? vercelRedirectUri
-      : window.location.origin)
+const redirectUri = 'https://www.etmsdrive.in/dashbuild/'
 const apiUrl = import.meta.env.VITE_AUTH_API_URL || '/api/auth/authorize'
 
 export const adalConfig = {
@@ -19,7 +12,7 @@ export const adalConfig = {
   redirectUri,
   postLogoutRedirectUri: redirectUri,
   cacheLocation: 'sessionStorage',
-  popUp: true,
+  popUp: false,
   navigateToLoginRequestUrl: false,
   callback: (error, user, errorDescription) => {
     window.dispatchEvent(new CustomEvent('adal-login-complete', {
