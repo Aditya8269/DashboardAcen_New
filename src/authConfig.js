@@ -5,7 +5,7 @@ const clientId = import.meta.env.VITE_CLIENT_ID || 'b55a7b4d-6fad-4f22-bb96-1f4a
 const productionRedirectUri = 'https://www.etmsdrive.in/dashbuild/'
 const vercelRedirectUri = 'https://dashboard-acen-new.vercel.app'
 const redirectUri = import.meta.env.VITE_REDIRECT_URI
-  || (window.location.hostname === 'www.etmsdrive.in'
+  || (window.location.hostname === 'https://etmsonline.in'
     ? productionRedirectUri
     : window.location.hostname === 'dashboard-acen-new.vercel.app'
       ? vercelRedirectUri
