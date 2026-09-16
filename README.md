@@ -15,7 +15,14 @@ The frontend currently uses the legacy ADAL.js v1 implicit flow with a popup bec
 2. Run `npm install` and `npm run dev`.
 3. Register `http://localhost:5173` as a Single-page application redirect URI in Entra ID. The slash matters: Azure compares this value exactly.
 
-For production, create a production env file with `VITE_BASE_PATH=/dashbuild/` and `VITE_REDIRECT_URI=https://www.etmsdrive.in/dashbuild/`, then register that exact URI. ADAL uses the tenant v1 authority `https://login.microsoftonline.com/f3211d0e-125b-42c3-86db-322b19a65a22`.
+For the Vercel deployment, set these Vercel environment variables and redeploy:
+
+```text
+VITE_REDIRECT_URI=https://dashboard-acen-new.vercel.app
+VITE_BASE_PATH=/
+```
+
+For the old production deployment, use `VITE_BASE_PATH=/dashbuild/` and `VITE_REDIRECT_URI=https://www.etmsdrive.in/dashbuild/`. Register the exact URI used by each deployment. ADAL uses the tenant v1 authority `https://login.microsoftonline.com/f3211d0e-125b-42c3-86db-322b19a65a22`.
 
 ## Backend contract
 
@@ -46,8 +53,9 @@ Run `npm run lint` and `npm run build` before deployment.
 In Azure Portal open **Microsoft Entra ID > App registrations > the app > Authentication**. Under **Single-page application**, add the exact URI you are using:
 
 - Local: `http://localhost:5173`
+- Vercel: `https://dashboard-acen-new.vercel.app`
 - Production: `https://www.etmsdrive.in/dashbuild/`
 
-Do not add the localhost URI under Web or Mobile and desktop applications. After saving, restart Vite so it reloads `.env`. A frontend code change cannot authorize a redirect URI that is missing from the Azure app registration.
+In Azure, add these under **Single-page application**, not Web or Mobile and desktop applications. After saving, redeploy Vercel so it reloads environment variables. A frontend code change cannot authorize a redirect URI that is missing from the Azure app registration.
 
 Because ADAL uses the implicit flow, enable **Access tokens** and **ID tokens** under **Authentication > Implicit grant and hybrid flows** in the Azure app registration. Keep backend token validation enabled; never trust the browser's user profile by itself. Popup mode does not remove Azure redirect URI validation: the exact URI must still be registered.
