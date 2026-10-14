@@ -1,3 +1,5 @@
+@import url('https://fonts.googleapis.com/icon?family=Material+Icons');
+
 :root {
   --ink: #17221d;
   --muted: #66736c;
@@ -16,6 +18,43 @@
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
 }
+
+/* PlusJakartaSans (served from /public/fonts) */
+@font-face { font-family: 'PlusJakartaSans'; src: url('/fonts/static/PlusJakartaSans-Regular.ttf') format('truetype'); font-weight: 400; font-display: swap; }
+@font-face { font-family: 'PlusJakartaSans'; src: url('/fonts/static/PlusJakartaSans-Medium.ttf') format('truetype'); font-weight: 500; font-display: swap; }
+@font-face { font-family: 'PlusJakartaSans'; src: url('/fonts/static/PlusJakartaSans-SemiBold.ttf') format('truetype'); font-weight: 600; font-display: swap; }
+@font-face { font-family: 'PlusJakartaSans'; src: url('/fonts/static/PlusJakartaSans-Bold.ttf') format('truetype'); font-weight: 700; font-display: swap; }
+@font-face { font-family: 'PlusJakartaSans'; src: url('/fonts/static/PlusJakartaSans-ExtraBold.ttf') format('truetype'); font-weight: 800; font-display: swap; }
+
+/* eTMS design tokens (from the TMS brand guidelines / style.css) */
+:root {
+  --font: 'PlusJakartaSans', 'Segoe UI', system-ui, sans-serif;
+  --white: #fff;
+  --primary-color: #4a36ec;
+  --primary-hover: #2f1bd5;
+  --light-purple: #ebe7ff;
+  --secondary-color: #1c1d20;
+  --offwhite: #f9f9f9;
+  --page-bg: #f7f7fa;
+  --grey-1: #f0f0f0;
+  --grey-2: #d2d2d2;
+  --grey-3: #999d9e;
+  --grey-4: #545557;
+  --grey-5: #2d3748;
+  --red-color: #f03d3d;
+  --danger-soft: #feecec;
+  --success-color: #0baa60;
+  --success-soft: #e7f7ef;
+  --warning-color: #fdba0f;
+  --warning-color-dark: #e18a07;
+  --warning-soft: #fff7e0;
+  --info-color: #3377ff;
+  --info-soft: #eef3ff;
+  --radius-card: 12px;
+  --shadow-card: 0 3.5px 5.5px 0 rgba(0, 0, 0, .02);
+}
+
+.material-icons { font-size: 20px; line-height: 1; vertical-align: middle; user-select: none; }
 
 * { box-sizing: border-box; }
 body { margin: 0; min-width: 320px; }
