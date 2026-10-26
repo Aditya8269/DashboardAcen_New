@@ -1,0 +1,7 @@
+/* Daily Route Details — layout comes from common/report.css */
+
+.report-filters.daily-filters { grid-template-columns: minmax(0, 780px) auto; justify-content: start; }
+
+@container main (max-width: 640px) {
+  .report-filters.daily-filters { grid-template-columns: 1fr; }
+}

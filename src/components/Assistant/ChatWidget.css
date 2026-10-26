@@ -80,3 +80,6 @@
 @media (prefers-reduced-motion: reduce) {
   .chat-panel, .chat-cursor, .chat-typing span { animation: none; }
 }
+
+/* Hide the floating button while a side panel (Drawer) is open so it doesn't cover panel buttons */
+body:has(.drawer) .chat-widget:not(.is-open) { display: none; }

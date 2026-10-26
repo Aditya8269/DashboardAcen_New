@@ -5,9 +5,16 @@ const sortIcon = (active, direction) => {
   return direction === 'asc' ? 'arrow_upward' : 'arrow_downward'
 }
 
+const cellClasses = (column) => [column.primary && 'is-primary', column.key === 'actions' && 'is-actions', column.align && `is-${column.align}`].filter(Boolean).join(' ') || undefined
+
 // columns: [{ key, header, sortable?, primary?, align?, render?(row) }]
+// footerRow: optional row (e.g. totals) shown in <tfoot>, outside sorting and paging.
 // On narrow screens every row turns into a labelled card (see common.css).
-function DataTable({ columns, rows, rowKey = 'id', sort, onSortChange, caption, emptyMessage = 'No records found.' }) {
+function DataTable({ columns, rows, rowKey = 'id', sort, onSortChange, caption, emptyMessage = 'No records found.', footerRow }) {
+  const renderCells = (row) => columns.map((column) => (
+    <td key={column.key} data-label={column.header} className={cellClasses(column)}>{column.render ? column.render(row) : row[column.key]}</td>
+  ))
+
   return (
     <div className="data-table-wrap">
       <table className="data-table">
@@ -27,17 +34,15 @@ function DataTable({ columns, rows, rowKey = 'id', sort, onSortChange, caption, 
           </tr>
         </thead>
         <tbody>
-          {rows.length > 0 ? rows.map((row) => (
-            <tr key={row[rowKey]}>
-              {columns.map((column) => {
-                const classes = [column.primary && 'is-primary', column.key === 'actions' && 'is-actions', column.align && `is-${column.align}`].filter(Boolean).join(' ')
-                return <td key={column.key} data-label={column.header} className={classes || undefined}>{column.render ? column.render(row) : row[column.key]}</td>
-              })}
-            </tr>
-          )) : (
+          {rows.length > 0 ? rows.map((row) => <tr key={row[rowKey]}>{renderCells(row)}</tr>) : (
             <tr className="data-table__empty"><td colSpan={columns.length}>{emptyMessage}</td></tr>
           )}
         </tbody>
+        {footerRow && rows.length > 0 && (
+          <tfoot>
+            <tr className="data-table__total">{renderCells(footerRow)}</tr>
+          </tfoot>
+        )}
       </table>
     </div>
   )

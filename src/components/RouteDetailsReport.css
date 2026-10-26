@@ -1,0 +1,24 @@
+/* Route Details Report (layout comes from common/report.css) */
+
+.rdr-results .data-table { min-width: 1280px; }
+
+.rdr-route { display: flex; flex-direction: column; gap: 4px; }
+.rdr-route__id { display: inline-flex; align-items: center; gap: 6px; font-weight: 600; }
+.rdr-route small { color: var(--grey-4); font-size: 12px; }
+.rdr-flag { display: grid; place-items: center; width: 18px; height: 18px; border-radius: 50%; color: var(--white); }
+.rdr-flag .material-icons { font-size: 13px; }
+.rdr-flag--medical { background: var(--red-color); }
+.rdr-flag--guard { color: var(--secondary-color); background: var(--warning-color); }
+
+.rdr-stack { display: flex; flex-direction: column; align-items: flex-start; gap: 3px; }
+.rdr-stack small { color: var(--grey-3); font-size: 11px; }
+.rdr-stack .pill { padding: 0 6px; font-size: 10px; line-height: 16px; }
+.rdr-gender { display: flex; gap: 4px; }
+.rdr-wrap { display: inline-block; min-width: 180px; max-width: 260px; white-space: normal; }
+.rdr-muted { color: var(--grey-3); }
+.rdr-status.pill { letter-spacing: .3px; }
+
+@container main (max-width: 640px) {
+  .rdr-results .data-table { min-width: 0; }
+  .rdr-wrap { min-width: 0; max-width: none; }
+}

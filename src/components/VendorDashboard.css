@@ -1,4 +1,4 @@
-/* Vendor Dashboard page */
+﻿/* Vendor Dashboard page */
 
 .text-danger { color: var(--red-color); }
 .cell-with-pill { display: inline-flex; align-items: center; gap: 10px; }
@@ -98,4 +98,70 @@
   .route-stat:nth-child(odd) { padding-left: 4px; border-left: 0; }
   .route-stat:nth-child(3n + 1)::after { left: 10px; }
   .route-stat:nth-child(odd)::after { left: 4px; }
+}
+
+/* ---------- Cab Reallocation panel ---------- */
+.drawer-chip { flex: 0 0 auto; height: 28px; padding: 0 14px; border: 0; border-radius: 6px; color: var(--primary-color); background: var(--white); font: inherit; font-size: 12px; font-weight: 600; cursor: pointer; }
+.drawer-chip:hover { background: var(--light-purple); }
+
+.realloc-drawer .drawer__body { padding-top: 16px; }
+.realloc-filters { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)) auto; align-items: end; gap: 14px; }
+.realloc-filters__submit { height: 42px; min-width: 110px; }
+.realloc-caption { margin: 18px 0 8px; color: var(--grey-4); font-size: 12px; }
+
+.realloc-table-wrap { overflow-x: auto; border: 1px solid var(--grey-1); border-radius: 10px; -webkit-overflow-scrolling: touch; }
+.realloc-table { width: 100%; min-width: 640px; border-collapse: collapse; }
+.realloc-table th { height: 52px; padding: 0 16px; color: var(--secondary-color); background: var(--offwhite); font-size: 13px; font-weight: 700; text-align: left; white-space: nowrap; }
+.realloc-table td { height: 52px; padding: 6px 16px; border-top: 1px solid var(--grey-1); color: var(--secondary-color); font-size: 13px; font-weight: 500; white-space: nowrap; transition: color .2s, background .2s; }
+.realloc-table tbody tr { cursor: pointer; }
+.realloc-table tbody tr:hover td { background: #fbfaff; }
+.realloc-table tr.is-selected td { background: var(--light-purple); font-weight: 600; }
+.realloc-table tr.is-dimmed td { color: var(--grey-3); }
+.realloc-table .is-wide { min-width: 200px; white-space: normal; }
+.realloc-table__check { width: 52px; }
+.realloc-table__empty { height: 90px !important; color: var(--grey-3) !important; text-align: center; cursor: default; }
+.check { width: 18px; height: 18px; margin: 0; accent-color: var(--primary-color); cursor: pointer; vertical-align: middle; }
+
+.realloc-route-id { display: inline-flex; align-items: center; gap: 8px; }
+.realloc-flags { display: inline-flex; gap: 4px; }
+.realloc-flag { display: grid; place-items: center; width: 20px; height: 20px; border-radius: 50%; color: var(--white); }
+.realloc-flag .material-icons { font-size: 13px; }
+.realloc-flag--ok { background: var(--success-color); }
+.realloc-flag--guard { color: var(--secondary-color); background: var(--warning-color); }
+.realloc-flag--medical { background: var(--red-color); }
+
+/* Slides up from below when a route is checked; collapses when none are */
+.realloc-cabs { display: grid; grid-template-rows: 0fr; margin-top: 0; opacity: 0; transform: translateY(40px); transition: grid-template-rows .35s ease, opacity .3s ease, transform .35s ease, margin-top .35s ease; }
+.realloc-cabs.is-open { grid-template-rows: 1fr; margin-top: 20px; opacity: 1; transform: translateY(0); }
+.realloc-cabs__inner { min-height: 0; overflow: hidden; }
+.realloc-table--cabs th { background: var(--grey-1); }
+
+.realloc-summary { flex: 1; min-width: 180px; margin: 0; color: var(--grey-4); font-size: 13px; }
+.realloc-summary strong { color: var(--secondary-color); }
+
+@media (max-width: 991px) {
+  .realloc-filters { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .realloc-filters__submit { grid-column: 1 / -1; }
+}
+
+/* Phones: rows become cards (checkbox at the top-right) */
+@media (max-width: 575px) {
+  .realloc-table-wrap { overflow: visible; border: 0; }
+  .realloc-table { min-width: 0; }
+  .realloc-table thead { display: none; }
+  .realloc-table, .realloc-table tbody, .realloc-table td { display: block; }
+  .realloc-table tbody { display: grid; gap: 10px; }
+  .realloc-table tbody tr { position: relative; display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 10px 14px; padding: 14px; border: 1px solid var(--grey-1); border-radius: 10px; }
+  .realloc-table tr.is-selected { border-color: #c9c1ff; background: var(--light-purple); }
+  .realloc-table td, .realloc-table tbody tr:hover td, .realloc-table tr.is-selected td { height: auto; padding: 0; border: 0; background: transparent; white-space: normal; }
+  .realloc-table td[data-label]::before { content: attr(data-label); display: block; margin-bottom: 2px; color: var(--grey-3); font-size: 11px; font-weight: 600; }
+  .realloc-table td:nth-child(2) { grid-column: 1 / -1; padding-right: 36px; }
+  .realloc-table .is-wide { grid-column: 1 / -1; min-width: 0; }
+  .realloc-table__check { position: absolute; top: 14px; right: 14px; width: auto; }
+  .drawer__footer .btn { flex: 1; }
+  .realloc-summary { flex-basis: 100%; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .realloc-cabs { transition: none; }
 }

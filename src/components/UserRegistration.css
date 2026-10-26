@@ -1,0 +1,54 @@
+/* User Registration page */
+
+
+.text-muted { color: var(--grey-3); }
+
+.users-card { overflow: hidden; }
+.users-toolbar { justify-content: flex-end; gap: 14px; padding: 18px 20px; }
+.users-facility { width: 220px; }
+.users-facility .form-control { height: 40px; }
+.users-search { width: 280px; height: 40px; }
+.users-search input { font-size: 13px; }
+
+.users-card .data-table th { height: 52px; font-size: 13px; }
+.users-card .data-table td { height: 64px; font-size: 13px; }
+.users-card .data-table td:first-child, .users-card .data-table th:first-child { padding-left: 20px; }
+.user-id { font-weight: 700; overflow-wrap: anywhere; }
+.user-facilities { display: inline-block; max-width: 260px; white-space: normal; }
+.user-date { font-variant-numeric: tabular-nums; }
+
+.user-actions { display: flex; align-items: center; gap: 4px; }
+.user-actions .dropdown__menu { min-width: 240px; }
+.icon-btn--danger { color: var(--red-color); }
+.icon-btn--danger:hover { color: var(--red-color); background: var(--danger-soft); }
+
+
+/* Add / edit form */
+.user-drawer .drawer__body { padding-top: 16px; }
+.user-form { display: flex; flex-direction: column; gap: 14px; }
+.user-form .form-field { gap: 4px; }
+.user-form .form-field__label { font-size: 13px; }
+.user-form .form-control { height: 38px; }
+.user-form .form-control[readonly] { color: var(--grey-4); background: #e9ecef; cursor: not-allowed; }
+.user-form__multi { margin: 0; padding: 0; border: 0; min-width: 0; }
+.user-form__multi legend { margin-bottom: 4px; padding: 0; }
+.multi-select { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 2px 10px; max-height: 120px; padding: 8px 10px; overflow-y: auto; border: 1px solid var(--grey-2); border-radius: 5px; background: var(--white); }
+.multi-select__option { display: flex; align-items: center; gap: 8px; padding: 5px 6px; border-radius: 4px; color: var(--secondary-color); font-size: 13px; cursor: pointer; }
+.multi-select__option:hover { background: var(--offwhite); }
+.multi-select__option.is-checked { color: var(--primary-color); font-weight: 600; }
+.user-drawer .drawer__footer { justify-content: flex-end; }
+.user-drawer .drawer__footer .btn { min-width: 72px; }
+
+@container main (max-width: 760px) {
+  .users-toolbar { justify-content: stretch; }
+  .users-facility { flex: 1 1 160px; width: auto; }
+  .users-search { flex: 1 1 200px; width: auto; }
+}
+
+@container main (max-width: 640px) {
+  .users-toolbar { padding: 12px; }
+  .users-card .data-table td { height: auto; }
+  .users-card .data-table td:first-child { padding-left: 0; }
+  .user-facilities { max-width: none; }
+}
+

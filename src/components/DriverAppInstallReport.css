@@ -1,0 +1,25 @@
+/* App Installed Status (DriverAppInstallReport) */
+
+.app-install-filters { grid-template-columns: minmax(0, 520px); }
+.app-install-card .data-table { min-width: 860px; }
+.app-install-card .data-table td { height: 52px; }
+
+.text-success { color: var(--success-color); font-weight: 600; }
+
+.pct-cell { display: inline-flex; align-items: center; gap: 10px; }
+.pct-cell > span:first-child { min-width: 42px; font-variant-numeric: tabular-nums; }
+.pct-bar { width: 80px; height: 6px; overflow: hidden; border-radius: 3px; background: var(--grey-1); }
+.pct-bar i { display: block; height: 100%; border-radius: 3px; }
+.pct-bar--success i { background: var(--success-color); }
+.pct-bar--danger i { background: var(--red-color); }
+
+.export-btn.btn { color: var(--secondary-color); font-weight: 500; }
+.export-btn .material-icons { color: var(--success-color); }
+
+@container main (max-width: 640px) {
+  .app-install-filters { grid-template-columns: 1fr; }
+  .app-install-card .data-table { min-width: 0; }
+  .app-install-card .data-table td.is-actions { position: static; grid-column: 1 / -1; }
+  .export-btn.btn { width: 100%; border: 1px solid var(--grey-2); }
+  .pct-bar { width: 56px; }
+}

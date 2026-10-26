@@ -6,6 +6,7 @@ import ChatWidget from '../Assistant/ChatWidget.jsx'
 import '../common/common.css'
 import './Master.css'
 
+
 // Below this width the sidebar overlays the page instead of pushing it.
 const OVERLAY_QUERY = '(max-width: 1199px)'
 

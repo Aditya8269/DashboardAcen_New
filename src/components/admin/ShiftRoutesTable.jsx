@@ -99,8 +99,8 @@ function RoutesSubTable({ routes, onOpenRoute, onDeleteRoute }) {
 
 // Shift → Vendor → Route drill-down table (Transport Admin).
 function ShiftRoutesTable({ shifts, onOpenRoute, onDeleteRoute, onNotify }) {
-  // First shift and its first vendor start expanded so the route level is visible.
-  const [expanded, setExpanded] = useState(() => new Set(shifts[0] ? [shifts[0].id, `${shifts[0].id}/${shifts[0].vendors[0]?.vendor}`] : []))
+  // Everything starts collapsed: only the shift rows show; the + button opens vendors, then routes.
+  const [expanded, setExpanded] = useState(() => new Set())
   const [query, setQuery] = useState('')
   const [tripType, setTripType] = useState('All')
   const term = query.trim().toLowerCase()

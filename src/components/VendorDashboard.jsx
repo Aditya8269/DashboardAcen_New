@@ -6,6 +6,7 @@ import RouteStatsCard from './vendor/RouteStatsCard.jsx'
 import StatusCard from './vendor/StatusCard.jsx'
 import AttentionCard from './vendor/AttentionCard.jsx'
 import RoutesTable from './vendor/RoutesTable.jsx'
+import CabReallocationDrawer from './vendor/CabReallocationDrawer.jsx'
 import { ALERTS, ROUTES, ROUTE_METRICS, STATUS_ITEMS } from './vendor/vendorData.js'
 import './VendorDashboard.css'
 
@@ -23,6 +24,8 @@ function VendorDashboard() {
   const [tripType, setTripType] = useState('All')
   const [notice, setNotice] = useState('')
   const clearNotice = useCallback(() => setNotice(''), [])
+  const [reallocShift, setReallocShift] = useState(null) // shift row whose pencil was clicked
+  const closeRealloc = useCallback(() => setReallocShift(null), [])
 
   const showAllTodayRoutes = () => {
     setActiveMetric('total')
@@ -48,9 +51,19 @@ function VendorDashboard() {
         tripType={tripType}
         onTripTypeChange={setTripType}
         onAddGuard={() => setNotice('Add Guard/Employee')}
-        onEdit={(route) => setNotice(`Editing ${route.shift} ${route.tripType} route`)}
+        onEdit={setReallocShift}
         onNotify={setNotice}
       />
+
+      {reallocShift && (
+        <CabReallocationDrawer
+          key={reallocShift.id}
+          shift={reallocShift}
+          shifts={ROUTES}
+          onClose={closeRealloc}
+          onNotify={setNotice}
+        />
+      )}
 
       <Toast message={notice} onClose={clearNotice} />
     </MasterLayout>

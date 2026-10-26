@@ -1,0 +1,9 @@
+/* App Status Report — layout comes from common/report.css */
+
+.app-status-results .data-table { min-width: 1100px; }
+.app-status-reason { display: inline-block; min-width: 180px; max-width: 240px; white-space: normal; line-height: 1.4; }
+
+@container main (max-width: 640px) {
+  .app-status-results .data-table { min-width: 0; }
+  .app-status-reason { min-width: 0; max-width: none; }
+}
