@@ -52,6 +52,8 @@
   --info-soft: #eef3ff;
   --radius-card: 12px;
   --shadow-card: 0 3.5px 5.5px 0 rgba(0, 0, 0, .02);
+  /* react-toastify uses the app font */
+  --toastify-font-family: var(--font);
 }
 
 .material-icons { font-size: 20px; line-height: 1; vertical-align: middle; user-select: none; }

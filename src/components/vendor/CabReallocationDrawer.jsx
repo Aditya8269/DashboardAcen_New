@@ -4,6 +4,7 @@ import Button from '../common/Button.jsx'
 import FormField from '../common/FormField.jsx'
 import MaterialIcon from '../Master/MaterialIcon.jsx'
 import { FACILITIES, TRIP_TYPES, getAvailableCabs, getShiftRoutes } from './reallocationData.js'
+import { toastService } from '../../services/toastService'
 
 const today = () => new Date().toLocaleDateString('en-CA')
 
@@ -27,7 +28,7 @@ function RouteFlags({ flags }) {
 
 // Cab Reallocation panel, opened from a shift row's edit (pencil) button.
 // Step 1: pick route(s) → step 2: the cab table slides up → pick a cab → Reallocate.
-function CabReallocationDrawer({ shift, shifts, onClose, onNotify }) {
+function CabReallocationDrawer({ shift, shifts, onClose }) {
   const [filters, setFilters] = useState({ date: today(), facility: FACILITIES[0], shift: shift.shift, tripType: shift.tripType })
   const [loaded, setLoaded] = useState({ shift: shift.shift, tripType: shift.tripType })
   const [routes, setRoutes] = useState(() => getShiftRoutes(shift.shift, shift.tripType))
@@ -70,7 +71,7 @@ function CabReallocationDrawer({ shift, shifts, onClose, onNotify }) {
     const cab = cabs.find((item) => item.id === selectedCab)
     if (!cab) return
     setRoutes((current) => current.map((route) => (selectedRoutes.has(route.id) ? { ...route, cabId: cab.id } : route)))
-    onNotify(`${cab.id} (${cab.vehicle}) allocated to ${selectedRoutes.size} route${selectedRoutes.size > 1 ? 's' : ''}`)
+    toastService.success(`${cab.id} (${cab.vehicle}) allocated to ${selectedRoutes.size} route${selectedRoutes.size > 1 ? 's' : ''}`)
     setSelectedRoutes(new Set())
     setSelectedCab(null)
   }

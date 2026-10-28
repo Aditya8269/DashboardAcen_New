@@ -1,11 +1,10 @@
-import { useCallback, useMemo, useState } from 'react'
+import { useMemo, useState } from 'react'
 import MasterLayout from './Master/MasterLayout.jsx'
 import Card from './common/Card.jsx'
 import Button from './common/Button.jsx'
 import Pill from './common/Pill.jsx'
 import FormField from './common/FormField.jsx'
 import ReportTableCard from './common/ReportTableCard.jsx'
-import Toast from './common/Toast.jsx'
 import { SUMMARY_FACILITIES, buildRouteSummary } from './reports/routeSummaryData.js'
 import { formatDay, todayIso, validateDateRange } from '../utils/date'
 
@@ -46,8 +45,6 @@ function RouteSummaryReport() {
   const [filters, setFilters] = useState(INITIAL_FILTERS) // applied on Submit
   const [submitCount, setSubmitCount] = useState(0)
   const [dateError, setDateError] = useState('')
-  const [notice, setNotice] = useState('')
-  const clearNotice = useCallback(() => setNotice(''), [])
 
   const rows = useMemo(() => ALL_ROWS.filter((row) =>
     row.date >= filters.startDate && row.date <= filters.endDate && row.facility === filters.facility), [filters])
@@ -102,10 +99,7 @@ function RouteSummaryReport() {
         csvColumns={CSV_COLUMNS}
         csvFileName={`route-summary-report-${todayIso()}.csv`}
         emptyMessage="No shifts found for the selected dates and facility."
-        onNotify={setNotice}
       />
-
-      <Toast message={notice} onClose={clearNotice} />
     </MasterLayout>
   )
 }

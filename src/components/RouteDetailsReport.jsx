@@ -1,4 +1,4 @@
-import { useCallback, useMemo, useState } from 'react'
+import { useMemo, useState } from 'react'
 import MasterLayout from './Master/MasterLayout.jsx'
 import MaterialIcon from './Master/MaterialIcon.jsx'
 import Card from './common/Card.jsx'
@@ -6,7 +6,6 @@ import Button from './common/Button.jsx'
 import Pill from './common/Pill.jsx'
 import FormField from './common/FormField.jsx'
 import ReportTableCard from './common/ReportTableCard.jsx'
-import Toast from './common/Toast.jsx'
 import { FACILITIES, REPORT_TYPES, VENDORS, buildRouteReport } from './reports/routeDetailsData.js'
 import { formatDay, todayIso, validateDateRange } from '../utils/date'
 import './RouteDetailsReport.css'
@@ -79,8 +78,6 @@ function RouteDetailsReport() {
   const [filters, setFilters] = useState(INITIAL_FILTERS) // applied on Submit
   const [submitCount, setSubmitCount] = useState(0)
   const [dateError, setDateError] = useState('')
-  const [notice, setNotice] = useState('')
-  const clearNotice = useCallback(() => setNotice(''), [])
   const rows = useMemo(() => applyFilters(ALL_ROWS, filters), [filters])
 
   const set = (key) => (event) => setForm((current) => ({ ...current, [key]: event.target.value }))
@@ -143,10 +140,7 @@ function RouteDetailsReport() {
         csvColumns={CSV_COLUMNS}
         csvFileName={`route-details-report-${todayIso()}.csv`}
         emptyMessage="No routes found for the selected filters. Try another date range or report type."
-        onNotify={setNotice}
       />
-
-      <Toast message={notice} onClose={clearNotice} />
     </MasterLayout>
   )
 }

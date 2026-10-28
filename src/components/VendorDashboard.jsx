@@ -1,7 +1,7 @@
 import { useCallback, useState } from 'react'
 import MasterLayout from './Master/MasterLayout.jsx'
 import Button from './common/Button.jsx'
-import Toast from './common/Toast.jsx'
+import { toastService } from '../services/toastService'
 import RouteStatsCard from './vendor/RouteStatsCard.jsx'
 import StatusCard from './vendor/StatusCard.jsx'
 import AttentionCard from './vendor/AttentionCard.jsx'
@@ -22,15 +22,13 @@ const ASSISTANT_CONTEXT = [
 function VendorDashboard() {
   const [activeMetric, setActiveMetric] = useState('total')
   const [tripType, setTripType] = useState('All')
-  const [notice, setNotice] = useState('')
-  const clearNotice = useCallback(() => setNotice(''), [])
   const [reallocShift, setReallocShift] = useState(null) // shift row whose pencil was clicked
   const closeRealloc = useCallback(() => setReallocShift(null), [])
 
   const showAllTodayRoutes = () => {
     setActiveMetric('total')
     setTripType('All')
-    setNotice('Showing all today routes')
+    toastService.info('Showing all today routes')
   }
 
   return (
@@ -43,16 +41,15 @@ function VendorDashboard() {
       <div className="vd-summary">
         <RouteStatsCard metrics={ROUTE_METRICS} activeKey={activeMetric} onSelect={setActiveMetric} />
         <StatusCard items={STATUS_ITEMS} />
-        <AttentionCard newCount={ALERTS.newCount} items={ALERTS.items} onSelect={() => setNotice('Opening alert details')} />
+        <AttentionCard newCount={ALERTS.newCount} items={ALERTS.items} onSelect={() => toastService.info('Opening alert details')} />
       </div>
 
       <RoutesTable
         routes={ROUTES}
         tripType={tripType}
         onTripTypeChange={setTripType}
-        onAddGuard={() => setNotice('Add Guard/Employee')}
+        onAddGuard={() => toastService.info('Add Guard/Employee')}
         onEdit={setReallocShift}
-        onNotify={setNotice}
       />
 
       {reallocShift && (
@@ -61,11 +58,8 @@ function VendorDashboard() {
           shift={reallocShift}
           shifts={ROUTES}
           onClose={closeRealloc}
-          onNotify={setNotice}
         />
       )}
-
-      <Toast message={notice} onClose={clearNotice} />
     </MasterLayout>
   )
 }

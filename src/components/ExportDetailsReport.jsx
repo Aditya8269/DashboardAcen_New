@@ -1,10 +1,9 @@
-import { useCallback, useMemo, useState } from 'react'
+import { useMemo, useState } from 'react'
 import MasterLayout from './Master/MasterLayout.jsx'
 import Card from './common/Card.jsx'
 import Button from './common/Button.jsx'
 import FormField from './common/FormField.jsx'
 import ReportTableCard from './common/ReportTableCard.jsx'
-import Toast from './common/Toast.jsx'
 import { MASTER_DATASETS, MASTER_FACILITIES, MASTER_REPORT_TYPES, MASTER_VENDORS } from './reports/masterData.js'
 import { todayIso } from '../utils/date'
 import './ExportDetailsReport.css'
@@ -70,8 +69,6 @@ function ExportDetailsReport() {
   const [details, setDetails] = useState('')
   const [detailsError, setDetailsError] = useState('')
   const [runCount, setRunCount] = useState(0)
-  const [notice, setNotice] = useState('')
-  const clearNotice = useCallback(() => setNotice(''), [])
 
   const report = REPORTS[filters.reportType]
   const rows = useMemo(() => {
@@ -165,10 +162,7 @@ function ExportDetailsReport() {
         csvColumns={csvColumnsFor(filters.reportType)}
         csvFileName={`master-data-${filters.reportType.toLowerCase().replace(/\s+/g, '-')}-${filters.facility}-${todayIso()}.csv`}
         emptyMessage={filters.details ? `No ${filters.reportType.toLowerCase()} found for “${filters.details}”.` : 'No records for the selected facility and vendor.'}
-        onNotify={setNotice}
       />
-
-      <Toast message={notice} onClose={clearNotice} />
     </MasterLayout>
   )
 }

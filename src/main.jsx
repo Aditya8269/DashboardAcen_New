@@ -1,4 +1,4 @@
-﻿import { createRoot } from 'react-dom/client'
+import { createRoot } from 'react-dom/client'
 import './index.css'
 import LoginRoute from './components/LoginRoute.jsx'
 import App from './App.jsx'
@@ -10,8 +10,10 @@ import DriverAppInstallReport from './components/DriverAppInstallReport.jsx'
 import ExportDetailsReport from './components/ExportDetailsReport.jsx'
 import DailyRouteDetails from './components/DailyRouteDetails.jsx'
 import AppStatusReport from './components/AppStatusReport.jsx'
+import Compliance from  './compliance.jsx'
 import { ROUTES } from './config/navigation'
 import { Routes, Route, BrowserRouter, Navigate } from 'react-router-dom'
+import { ToastContainer } from 'react-toastify'
 
 const basePath = import.meta.env.VITE_BASE_PATH || '/'
 
@@ -28,9 +30,12 @@ createRoot(document.getElementById('root')).render(
       <Route path={ROUTES.masterData} element={<ExportDetailsReport />} />
       <Route path={ROUTES.dailyRouteDetails} element={<DailyRouteDetails />} />
       <Route path={ROUTES.appStatusReport} element={<AppStatusReport />} />
+      <Route path={ROUTES.compliance} element={<Compliance />} />
       <Route path="/admin" element={<Navigate to={ROUTES.admin} replace />} />
       <Route path="/login" element={<LoginRoute />} />
       <Route path="*" element={<Navigate to={ROUTES.admin} replace />} />
     </Routes>
+    {/* One toast container for every page (used by services/toastService) */}
+    <ToastContainer position="top-right" autoClose={3000} newestOnTop pauseOnFocusLoss={false} />
   </BrowserRouter>
 )

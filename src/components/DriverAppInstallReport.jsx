@@ -1,10 +1,10 @@
-import { useCallback, useMemo, useState } from 'react'
+import { useMemo, useState } from 'react'
 import MasterLayout from './Master/MasterLayout.jsx'
 import Card from './common/Card.jsx'
 import Button from './common/Button.jsx'
 import FormField from './common/FormField.jsx'
 import DataTable from './common/DataTable.jsx'
-import Toast from './common/Toast.jsx'
+import { toastService } from '../services/toastService'
 import { APP_FACILITIES, APP_INSTALL_SUMMARY, getFacilityDrivers } from './reports/appInstallData.js'
 import { downloadCsv } from '../utils/csv'
 import { todayIso } from '../utils/date'
@@ -37,8 +37,6 @@ function PercentCell({ value, tone }) {
 function DriverAppInstallReport() {
   const [facility, setFacility] = useState(APP_FACILITIES[0])
   const [sort, setSort] = useState({ key: 'facility', direction: 'asc' })
-  const [notice, setNotice] = useState('')
-  const clearNotice = useCallback(() => setNotice(''), [])
 
   const rows = useMemo(() => {
     const matched = APP_INSTALL_SUMMARY.filter((row) => facility === ALL || row.facility === facility)
@@ -49,7 +47,7 @@ function DriverAppInstallReport() {
   const exportFacility = (row) => {
     const drivers = getFacilityDrivers(row.facility)
     downloadCsv(`app-installed-status-${row.facility}-${todayIso()}.csv`, driverCsvColumns(row.facility), drivers)
-    setNotice(`Exported ${drivers.length} drivers of ${row.facility}`)
+    toastService.success(`Exported ${drivers.length} drivers of ${row.facility}`)
   }
 
   const columns = [
@@ -96,8 +94,6 @@ function DriverAppInstallReport() {
           emptyMessage="No data for this facility."
         />
       </Card>
-
-      <Toast message={notice} onClose={clearNotice} />
     </MasterLayout>
   )
 }

@@ -2,7 +2,7 @@ import { useCallback, useState } from 'react'
 import MasterLayout from './Master/MasterLayout.jsx'
 import Button from './common/Button.jsx'
 import Banner from './common/Banner.jsx'
-import Toast from './common/Toast.jsx'
+import { toastService } from '../services/toastService'
 import RouteStatsCard from './vendor/RouteStatsCard.jsx'
 import StatusCard from './vendor/StatusCard.jsx'
 import AttentionCard from './vendor/AttentionCard.jsx'
@@ -41,8 +41,6 @@ function AdminDashboard() {
   const [shifts, setShifts] = useState(SHIFTS)
   const [activeMetric, setActiveMetric] = useState('total')
   const [selected, setSelected] = useState(null) // { routeId, action }
-  const [notice, setNotice] = useState('')
-  const clearNotice = useCallback(() => setNotice(''), [])
   const closeDrawer = useCallback(() => setSelected(null), [])
 
   const selectedRoute = selected ? findRoute(shifts, selected.routeId) : null
@@ -69,13 +67,13 @@ function AdminDashboard() {
 
   const deleteRoute = (route) => {
     setShifts((current) => mapRoutes(current, (routes) => routes.filter((item) => item.id !== route.id)))
-    setNotice(`Route ${route.id} removed`)
+    toastService.success(`Route ${route.id} removed`)
   }
 
   const refreshAll = () => {
     setShifts(SHIFTS)
     setActiveMetric('total')
-    setNotice('All data refreshed successfully')
+    toastService.success('All data refreshed successfully')
   }
 
   return (
@@ -85,7 +83,7 @@ function AdminDashboard() {
       assistantContext={buildAssistantContext(shifts)}
       headerActions={(
         <div className="header-action-group">
-          <Button size="sm" onClick={() => { setActiveMetric('total'); setNotice('Showing all today routes') }}>All Today Routes</Button>
+          <Button size="sm" onClick={() => { setActiveMetric('total'); toastService.info('Showing all today routes') }}>All Today Routes</Button>
           <Button size="sm" variant="outline-dark" icon="refresh" className="btn--collapse-label" onClick={refreshAll}>Refresh All</Button>
         </div>
       )}
@@ -109,7 +107,6 @@ function AdminDashboard() {
             shifts={shifts}
             onOpenRoute={(route, action) => setSelected({ routeId: route.id, action })}
             onDeleteRoute={deleteRoute}
-            onNotify={setNotice}
           />
 
           {selectedRoute && (
@@ -119,11 +116,8 @@ function AdminDashboard() {
               initialAction={selected.action}
               onClose={closeDrawer}
               onUpdateRoute={updateRoute}
-              onNotify={setNotice}
             />
           )}
-
-          <Toast message={notice} onClose={clearNotice} />
         </>
       )}
     </MasterLayout>

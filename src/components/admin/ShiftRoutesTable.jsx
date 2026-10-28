@@ -7,6 +7,7 @@ import SearchInput from '../common/SearchInput.jsx'
 import Dropdown, { DropdownItem } from '../common/Dropdown.jsx'
 import MaterialIcon from '../Master/MaterialIcon.jsx'
 import { asset } from '../../utils/asset'
+import { toastService } from '../../services/toastService'
 
 const TRIP_TYPES = ['All', 'PICK', 'DROP']
 const STATUS_TONE = { Accepted: 'success', Refused: 'warning', 'Driver Rejected': 'danger' }
@@ -98,7 +99,7 @@ function RoutesSubTable({ routes, onOpenRoute, onDeleteRoute }) {
 }
 
 // Shift → Vendor → Route drill-down table (Transport Admin).
-function ShiftRoutesTable({ shifts, onOpenRoute, onDeleteRoute, onNotify }) {
+function ShiftRoutesTable({ shifts, onOpenRoute, onDeleteRoute }) {
   // Everything starts collapsed: only the shift rows show; the + button opens vendors, then routes.
   const [expanded, setExpanded] = useState(() => new Set())
   const [query, setQuery] = useState('')
@@ -147,7 +148,7 @@ function ShiftRoutesTable({ shifts, onOpenRoute, onDeleteRoute, onNotify }) {
           <div className="routes-toolbar__icons">
             <IconButton icon="unfold_more" label="Expand all" onClick={expandAll} />
             <IconButton icon="unfold_less" label="Collapse all" onClick={collapseAll} />
-            <IconButton icon="sync" variant="soft" label="Refresh" onClick={() => onNotify('Routes refreshed')} />
+            <IconButton icon="sync" variant="soft" label="Refresh" onClick={() => toastService.success('Routes refreshed')} />
           </div>
         </div>
       </div>

@@ -81,13 +81,6 @@
 .data-table__sort .material-icons { color: var(--grey-3); font-size: 14px; }
 .data-table__empty td { height: 120px; color: var(--grey-3); text-align: center; }
 
-/* Toast */
-.toast { position: fixed; z-index: 90; right: 24px; bottom: calc(96px + env(safe-area-inset-bottom, 0px)); display: flex; align-items: center; gap: 10px; max-width: calc(100vw - 32px); padding: 12px 14px; border-radius: 10px; color: var(--white); background: var(--secondary-color); box-shadow: 0 10px 30px rgba(28, 29, 32, .25); font-size: 13px; font-weight: 500; animation: toast-in .2s ease-out; }
-.toast > .material-icons { color: #5ee0a0; font-size: 18px; }
-.toast button { display: grid; padding: 0; border: 0; color: var(--grey-3); background: none; cursor: pointer; }
-.toast button .material-icons { font-size: 16px; }
-@keyframes toast-in { from { opacity: 0; transform: translateY(10px); } }
-
 /* Table rows become cards on small containers (phones / narrow panes) */
 @container main (max-width: 640px) {
   .data-table { min-width: 0; }
@@ -106,9 +99,6 @@
   .data-table .data-table__empty td::before { display: none; }
 }
 
-@media (max-width: 575px) {
-  .toast { right: 16px; left: 16px; bottom: calc(84px + env(safe-area-inset-bottom, 0px)); }
-}
 
 /* Extra button variants */
 .btn--outline-dark { color: var(--secondary-color); background: var(--white); border-color: var(--secondary-color); }

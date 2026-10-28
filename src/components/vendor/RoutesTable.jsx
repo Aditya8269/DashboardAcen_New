@@ -7,6 +7,7 @@ import SearchInput from '../common/SearchInput.jsx'
 import DataTable from '../common/DataTable.jsx'
 import Dropdown, { DropdownItem } from '../common/Dropdown.jsx'
 import MaterialIcon from '../Master/MaterialIcon.jsx'
+import { toastService } from '../../services/toastService'
 
 const TRIP_TYPES = ['All', 'PICK', 'DROP']
 
@@ -20,7 +21,7 @@ const exportCsv = (rows) => {
   URL.revokeObjectURL(url)
 }
 
-function RoutesTable({ routes, tripType, onTripTypeChange, onAddGuard, onEdit, onNotify }) {
+function RoutesTable({ routes, tripType, onTripTypeChange, onAddGuard, onEdit }) {
   const [query, setQuery] = useState('')
   const [sort, setSort] = useState({ key: 'shift', direction: 'asc' })
   const [refreshing, setRefreshing] = useState(false)
@@ -42,13 +43,13 @@ function RoutesTable({ routes, tripType, onTripTypeChange, onAddGuard, onEdit, o
     setRefreshing(true)
     setTimeout(() => {
       setRefreshing(false)
-      onNotify('Routes refreshed')
+      toastService.success('Routes refreshed')
     }, 700)
   }
 
   const handleExport = () => {
     exportCsv(rows)
-    onNotify(`Exported ${rows.length} routes`)
+    toastService.success(`Exported ${rows.length} routes`)
   }
 
   const columns = [

@@ -158,7 +158,7 @@
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .app-sidebar, .app-main, .notifications-panel, .app-backdrop, .dropdown__menu, .toast { transition: none; animation: none; }
+  .app-sidebar, .app-main, .notifications-panel, .app-backdrop, .dropdown__menu { transition: none; animation: none; }
 }
 
 /* Optional header parts: breadcrumb, company logo, grouped actions, Material icons in the sidebar */

@@ -9,6 +9,7 @@ export const ROUTES = {
   masterData: '/reports/master-data',
   dailyRouteDetails: '/reports/daily-route-details',
   appStatusReport: '/reports/app-status',
+  compliance: '/compliance',
 }
 
 // Dashboards reachable from the header app switcher (grid icon).
@@ -24,11 +25,7 @@ const ADMIN_SECTION = ['Schedules', 'ADHOC’S Management', 'My No Shows', 'My F
 export const SIDEBAR_MENU = [
   { label: 'Admin', icon: 'admin_panel_settings', children: [{ label: 'Dashboard', to: ROUTES.admin }, { label: 'User Registration', to: ROUTES.userRegistration }, ...ADMIN_SECTION] },
   { label: 'Vendor', icon: 'local_shipping', children: [{ label: 'Dashboard', to: ROUTES.vendor }, 'Add Employee', 'Assign Vehicle'] },
-  { label: 'Route Details', image: 'allocation.png', children: ['Today Routes', 'Route History'] },
-  { label: 'Transport', icon: 'directions_car', children: ['Tracking Employees', 'Reports Data'] },
-  { label: 'Clear Geofencing', image: 'map.png' },
-  { label: 'Reassign', image: 'swap.png' },
-  { label: 'Billing', icon: 'edit_document', children: ['Dashboard', ...ADMIN_SECTION] },
+  { label: 'Compliance', icon: 'assignment_turned_in', children: ['Dashboard', ...ADMIN_SECTION] },
   {
     label: 'Reports',
     icon: 'description',
@@ -44,6 +41,4 @@ export const SIDEBAR_MENU = [
       'No-Communication Report',
     ],
   },
-  { label: 'Security', icon: 'security', children: ['Dashboard', ...ADMIN_SECTION] },
-  { label: 'Compliance', icon: 'assignment_turned_in', children: ['Dashboard', ...ADMIN_SECTION] },
 ]

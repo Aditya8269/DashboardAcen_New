@@ -7,6 +7,7 @@ import Pagination from './Pagination.jsx'
 import { downloadCsv } from '../../utils/csv'
 import '../VendorDashboard.css' // shared toolbar styles
 import './report.css'
+import { toastService } from '../../services/toastService'
 
 const PAGE_SIZES = [10, 25, 50, 100]
 
@@ -16,7 +17,7 @@ const PAGE_SIZES = [10, 25, 50, 100]
 // - sortValue(row, key): optional custom sort value for a column
 // - csvColumns: [[title, row => value]], csvFileName
 // - totalRow(visibleRows): optional totals row shown at the bottom (and added to the CSV)
-function ReportTableCard({ caption, columns, rows, searchValues, sortValue, defaultSort, csvColumns, csvFileName, emptyMessage, onNotify, totalRow, className = '' }) {
+function ReportTableCard({ caption, columns, rows, searchValues, sortValue, defaultSort, csvColumns, csvFileName, emptyMessage, totalRow, className = '' }) {
   const [query, setQuery] = useState('')
   const [sort, setSort] = useState(defaultSort)
   const [pageSize, setPageSize] = useState(PAGE_SIZES[0])
@@ -41,17 +42,17 @@ function ReportTableCard({ caption, columns, rows, searchValues, sortValue, defa
     setRefreshing(true)
     setTimeout(() => {
       setRefreshing(false)
-      onNotify?.('Report refreshed')
+      toastService.success('Report refreshed')
     }, 600)
   }
 
   const download = () => {
     if (!visibleRows.length) {
-      onNotify?.('No records to download')
+      toastService.warn('No records to download')
       return
     }
     downloadCsv(csvFileName, csvColumns, totals ? [...visibleRows, totals] : visibleRows)
-    onNotify?.(`Downloaded ${visibleRows.length} record${visibleRows.length > 1 ? 's' : ''}`)
+    toastService.success(`Downloaded ${visibleRows.length} record${visibleRows.length > 1 ? 's' : ''}`)
   }
 
   return (

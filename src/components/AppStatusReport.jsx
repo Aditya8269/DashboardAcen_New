@@ -1,11 +1,10 @@
-import { useCallback, useMemo, useState } from 'react'
+import { useMemo, useState } from 'react'
 import MasterLayout from './Master/MasterLayout.jsx'
 import Card from './common/Card.jsx'
 import Button from './common/Button.jsx'
 import Pill from './common/Pill.jsx'
 import FormField from './common/FormField.jsx'
 import ReportTableCard from './common/ReportTableCard.jsx'
-import Toast from './common/Toast.jsx'
 import { APP_STATUS_FACILITIES, buildAppStatus } from './reports/appStatusData.js'
 import { formatDay, todayIso, validateDateRange } from '../utils/date'
 import './AppStatusReport.css'
@@ -39,8 +38,6 @@ function AppStatusReport() {
   const [filters, setFilters] = useState(INITIAL_FILTERS) // applied on Submit
   const [submitCount, setSubmitCount] = useState(0)
   const [dateError, setDateError] = useState('')
-  const [notice, setNotice] = useState('')
-  const clearNotice = useCallback(() => setNotice(''), [])
 
   const rows = useMemo(() => ALL_ROWS.filter((row) =>
     row.date >= filters.startDate && row.date <= filters.endDate && row.facility === filters.facility), [filters])
@@ -94,10 +91,7 @@ function AppStatusReport() {
         csvColumns={CSV_COLUMNS}
         csvFileName={`app-status-report-${filters.facility}-${todayIso()}.csv`}
         emptyMessage="No trips found for the selected dates and facility."
-        onNotify={setNotice}
       />
-
-      <Toast message={notice} onClose={clearNotice} />
     </MasterLayout>
   )
 }

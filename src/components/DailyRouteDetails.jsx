@@ -1,10 +1,9 @@
-import { useCallback, useMemo, useState } from 'react'
+import { useMemo, useState } from 'react'
 import MasterLayout from './Master/MasterLayout.jsx'
 import Card from './common/Card.jsx'
 import Button from './common/Button.jsx'
 import FormField from './common/FormField.jsx'
 import ReportTableCard from './common/ReportTableCard.jsx'
-import Toast from './common/Toast.jsx'
 import { DAILY_NUMBER_COLUMNS, buildDailyRoutes } from './reports/dailyRouteData.js'
 import { formatDay, todayIso } from '../utils/date'
 import './DailyRouteDetails.css'
@@ -36,8 +35,6 @@ function DailyRouteDetails() {
   const [date, setDate] = useState(todayIso) // applied on Submit
   const [dateError, setDateError] = useState('')
   const [submitCount, setSubmitCount] = useState(0)
-  const [notice, setNotice] = useState('')
-  const clearNotice = useCallback(() => setNotice(''), [])
 
   const rows = useMemo(() => ALL_ROWS.filter((row) => row.date === date), [date])
   const totals = rows.length ? totalRow(rows) : null
@@ -82,10 +79,7 @@ function DailyRouteDetails() {
         csvFileName={`daily-route-details-${date}.csv`}
         emptyMessage={`No routes found for ${formatDay(date)}.`}
         totalRow={totalRow}
-        onNotify={setNotice}
       />
-
-      <Toast message={notice} onClose={clearNotice} />
     </MasterLayout>
   )
 }

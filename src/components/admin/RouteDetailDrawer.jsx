@@ -6,6 +6,7 @@ import FormField from '../common/FormField.jsx'
 import MaterialIcon from '../Master/MaterialIcon.jsx'
 import { asset } from '../../utils/asset'
 import { VENDORS, VEHICLE_TYPES } from './adminData.js'
+import { toastService } from '../../services/toastService'
 
 const ACTIONS = [
   { key: 'assign', label: 'Re assign', icon: 'swap_horiz', variant: 'primary' },
@@ -105,7 +106,7 @@ function ClearGeofence({ onDone }) {
 }
 
 // Route details panel opened from a Route ID. `initialAction` opens a form straight away.
-function RouteDetailDrawer({ route, initialAction, onClose, onUpdateRoute, onNotify }) {
+function RouteDetailDrawer({ route, initialAction, onClose, onUpdateRoute }) {
   const [action, setAction] = useState(initialAction === 'details' ? null : initialAction)
   const [showLog, setShowLog] = useState(false)
 
@@ -128,7 +129,7 @@ function RouteDetailDrawer({ route, initialAction, onClose, onUpdateRoute, onNot
 
   const finish = (message) => {
     setAction(null)
-    onNotify(message)
+    toastService.success(message)
   }
 
   return (

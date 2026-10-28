@@ -7,7 +7,7 @@ import SearchInput from './common/SearchInput.jsx'
 import DataTable from './common/DataTable.jsx'
 import Dropdown from './common/Dropdown.jsx'
 import Pagination from './common/Pagination.jsx'
-import Toast from './common/Toast.jsx'
+import { toastService } from '../services/toastService'
 import UserFormDrawer from './users/UserFormDrawer.jsx'
 import { FACILITIES, USERS } from './users/usersData.js'
 import { getCurrentUser } from '../authConfig'
@@ -34,8 +34,6 @@ function UserRegistration() {
   const [page, setPage] = useState(1)
   const [editing, setEditing] = useState(null) // null = closed, 'new', or a user object
   const [refreshing, setRefreshing] = useState(false)
-  const [notice, setNotice] = useState('')
-  const clearNotice = useCallback(() => setNotice(''), [])
   const closeForm = useCallback(() => setEditing(null), [])
 
   const filtered = useMemo(() => {
@@ -65,19 +63,19 @@ function UserRegistration() {
     const exists = users.some((user) => user.id === saved.id)
     setUsers((current) => (exists ? current.map((user) => (user.id === saved.id ? saved : user)) : [saved, ...current]))
     setEditing(null)
-    setNotice(exists ? `User ${saved.employeeId} updated` : `User ${saved.employeeId} added`)
+    toastService.success(exists ? `User ${saved.employeeId} updated` : `User ${saved.employeeId} added`)
   }
 
   const deleteUser = (user) => {
     setUsers((current) => current.filter((item) => item.id !== user.id))
-    setNotice(`User ${user.employeeId} deleted`)
+    toastService.success(`User ${user.employeeId} deleted`)
   }
 
   const refresh = () => {
     setRefreshing(true)
     setTimeout(() => {
       setRefreshing(false)
-      setNotice('User list refreshed')
+      toastService.success('User list refreshed')
     }, 600)
   }
 
@@ -158,8 +156,6 @@ function UserRegistration() {
           onSave={saveUser}
         />
       )}
-
-      <Toast message={notice} onClose={clearNotice} />
     </MasterLayout>
   )
 }
