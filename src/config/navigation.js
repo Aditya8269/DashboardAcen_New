@@ -25,7 +25,7 @@ const ADMIN_SECTION = ['Schedules', 'ADHOC’S Management', 'My No Shows', 'My F
 export const SIDEBAR_MENU = [
   { label: 'Admin', icon: 'admin_panel_settings', children: [{ label: 'Dashboard', to: ROUTES.admin }, { label: 'User Registration', to: ROUTES.userRegistration }, ...ADMIN_SECTION] },
   { label: 'Vendor', icon: 'local_shipping', children: [{ label: 'Dashboard', to: ROUTES.vendor }, 'Add Employee', 'Assign Vehicle'] },
-  { label: 'Compliance', icon: 'assignment_turned_in', children: ['Dashboard', ...ADMIN_SECTION] },
+  { label: 'Compliance', icon: 'assignment_turned_in', children: [{ label: 'Dashboard', to: ROUTES.compliance }, ...ADMIN_SECTION] },
   {
     label: 'Reports',
     icon: 'description',

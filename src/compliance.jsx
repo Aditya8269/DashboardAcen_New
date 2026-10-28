@@ -1,5 +1,6 @@
 import { useCallback, useEffect, useRef, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
+import { ROUTES } from './config/navigation'
 import {
   Accordion,
   AccordionDetails,
@@ -768,7 +769,7 @@ export default function Compliance() {
         <AppBar position="sticky" color="inherit" elevation={0} sx={{ borderBottom: 1, borderColor: 'divider' }}>
           <Toolbar sx={{ gap: { xs: 1, sm: 1.5 }, minHeight: { xs: 56 } }}>
             <Tooltip title="Back to dashboard">
-              <IconButton edge="start" aria-label="Back to dashboard" onClick={() => navigate('/transport-admin')}><ArrowBack /></IconButton>
+              <IconButton edge="start" aria-label="Back to dashboard" onClick={() => navigate(ROUTES.admin)}><ArrowBack /></IconButton>
             </Tooltip>
             <Avatar variant="rounded" sx={{ width: 34, height: 34, bgcolor: 'primary.main', fontWeight: 800 }}>E</Avatar>
             <Typography variant="subtitle1" fontWeight={700} noWrap sx={{ flexGrow: 1, minWidth: 0 }}>ETMS Drive</Typography>
