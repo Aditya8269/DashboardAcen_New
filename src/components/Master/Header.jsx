@@ -2,7 +2,7 @@ import { useState } from 'react'
 import { Link, useLocation, useNavigate } from 'react-router-dom'
 import { getCurrentUser, signOut } from '../../authConfig'
 import { asset, padNumber } from '../../utils/asset'
-import { DASHBOARDS } from '../../config/navigation'
+import { DASHBOARDS, ROUTES } from '../../config/navigation'
 import Dropdown, { DropdownItem } from '../common/Dropdown.jsx'
 import MaterialIcon from './MaterialIcon.jsx'
 import CalendarPicker from './CalendarPicker.jsx'
@@ -94,6 +94,7 @@ function Header({ sidebarOpen, notificationsOpen, notificationCount = 0, onSideb
                 <div><strong>{userName}</strong><small>{account?.upn || account?.email || 'eTMS user'}</small></div>
               </div>
               <DropdownItem icon="person_outline" onClick={close}>My Profile</DropdownItem>
+              <DropdownItem icon="lock_reset" onClick={() => { navigate(ROUTES.changePassword); close() }}>Change Password</DropdownItem>
               <DropdownItem icon="menu_book" onClick={close}>Help Documents</DropdownItem>
               <div className="dropdown__divider" />
               <DropdownItem icon="logout" danger onClick={handleLogout}>Logout</DropdownItem>

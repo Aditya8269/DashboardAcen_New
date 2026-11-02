@@ -11,6 +11,7 @@ import ExportDetailsReport from './components/ExportDetailsReport.jsx'
 import DailyRouteDetails from './components/DailyRouteDetails.jsx'
 import AppStatusReport from './components/AppStatusReport.jsx'
 import Compliance from  './compliance.jsx'
+import ChangePassword from './components/ChangePassword.jsx'
 import { ROUTES } from './config/navigation'
 import { Routes, Route, BrowserRouter, Navigate } from 'react-router-dom'
 import { ToastContainer } from 'react-toastify'
@@ -31,6 +32,7 @@ createRoot(document.getElementById('root')).render(
       <Route path={ROUTES.dailyRouteDetails} element={<DailyRouteDetails />} />
       <Route path={ROUTES.appStatusReport} element={<AppStatusReport />} />
       <Route path={ROUTES.compliance} element={<Compliance />} />
+      <Route path={ROUTES.changePassword} element={<ChangePassword />} />
       <Route path="/admin" element={<Navigate to={ROUTES.admin} replace />} />
       <Route path="/login" element={<LoginRoute />} />
       <Route path="*" element={<Navigate to={ROUTES.admin} replace />} />

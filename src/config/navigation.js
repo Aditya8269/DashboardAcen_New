@@ -10,6 +10,7 @@ export const ROUTES = {
   dailyRouteDetails: '/reports/daily-route-details',
   appStatusReport: '/reports/app-status',
   compliance: '/compliance',
+  changePassword: '/change-password',
 }
 
 // Dashboards reachable from the header app switcher (grid icon).
