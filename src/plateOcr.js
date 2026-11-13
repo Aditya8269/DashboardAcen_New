@@ -31,6 +31,11 @@ import {
 } from './plateGeometry.js'
 
 const WHITELIST = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789'
+
+// Maps each confusable letter to a canonical group representative so votes for W and V both
+// count toward the same group. The canonical is arbitrary — only the grouping matters.
+// Groups: {W,U,V}, {B,D}, {C,S}, {E,F}, {M,N}, {X,Y}
+const CONFUSE_TO_CANON = { U: 'W', V: 'W', D: 'B', S: 'C', F: 'E', N: 'M', Y: 'X' }
 // Long side, in pixels, of the downscaled frames used to find character lines. Two sizes so both a small
 // plate in a big scene and a plate filling the frame have characters of a findable size.
 const LOCATE_SIDES = [2000, 900]
@@ -73,9 +78,21 @@ export function voteCharacters(readings) {
       votes.set(r.value[i], (votes.get(r.value[i]) || 0) + weight)
       total += weight
     })
-    const [char, weight] = [...votes.entries()].sort((a, b) => b[1] - a[1])[0]
-    value += char
-    agreement += weight / total
+    // Confusion-aware selection: letters in the same confusion group (W/U/V, B/D, C/S, E/F, M/N,
+    // X/Y) pool their votes so a split between W and V cannot be beaten by an unrelated letter.
+    const groups = new Map() // canon -> { total, bestChar, bestWeight }
+    for (const [ch, w] of votes) {
+      const canon = CONFUSE_TO_CANON[ch] || ch
+      const g = groups.get(canon)
+      if (!g) groups.set(canon, { total: w, bestChar: ch, bestWeight: w })
+      else {
+        g.total += w
+        if (w > g.bestWeight) { g.bestChar = ch; g.bestWeight = w }
+      }
+    }
+    const winner = [...groups.values()].sort((a, b) => b.total - a.total)[0]
+    value += winner.bestChar
+    agreement += winner.total / total
   }
   const consensus = (agreement / length) * (same.length / readings.length)
   return { value, confidence: same.length === 1 ? Math.min(0.5, consensus) : consensus, readings: same.length }
